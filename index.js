@@ -81,11 +81,26 @@ function handleItemCheckClicked() {
   });
 }
 
+function deleteItemFromList(itemID) {
+    // delete item from list/STORE with ID that matches user-selected item ID
+    const storeID = STORE.findIndex(item => item.id === itemID);
+    // find the index of user's item that matches ID from shopping list
+    // v Note: Need index of the item to be able to splice for removal
+    STORE.splice(storeID, 1);   // index of item in array STORE
+                // deleting 1 array item (object from list)
+}
 
 function handleDeleteItemClicked() {
   // this function will be responsible for when users want to delete a shopping list
   // item
-  console.log('`handleDeleteItemClicked` ran')
+  console.log('`handleDeleteItemClicked` ran');
+  $('.js-shopping-list').on('click', `.js-item-delete`, event => {
+      // ^user selects item to delete
+      // select item in STORE
+      const itemID = getItemIdFromElement(event.currentTarget);
+      deleteItemFromList(itemID);   // delete user's selected item from list
+      renderShoppingList(); // re-render shopping list
+  });
 }
 
 // this function will be our callback when the page loads. it's responsible for
